@@ -6,7 +6,7 @@ Created on Tue Jan 22 11:23:50 2019
 @author: nmp
 """
 
-import socket                                         
+import socket
 import struct
 from antidotedb.proto import *
 
@@ -23,19 +23,19 @@ class Counter :
     def __init__(self, key, val):
         self.key = key
         self.val = val
-        
+
     def value( self) :
         return self.val
 
     def incOp( self, val) :
         return Counter.IncOp( self.key, val)
 
-    def incKeyOp( val, key) : 
+    def incKeyOp( val, key) :
         return Counter.IncOp( key, val)
-    
+
     def __repr__( self):
         return self.key.data_type_name + ' { val : ' + str(self.val) + '}'
-    
+
     class IncOp:
         def __init__(self, key, val, data_type = None):
             self.val = val
@@ -44,7 +44,7 @@ class Counter :
                 self.data_type = key.data_type
             else:
                 self.data_type = CRDT_type.Value(data_type)
-        
+
         def getType( self) :
             return self.data_type
 
@@ -84,7 +84,7 @@ class Flag :
     def __init__(self, key, val):
         self.key = key
         self.val = val
-        
+
     def value( self) :
         return self.val
 
@@ -102,7 +102,7 @@ class Flag :
 
     # def updateKeyOp( val, key) :
     #     return Flag.UpdateOp( key, val)
- 
+
     class UpdateOp:
         def __init__(self, key, val, data_type = None):
             self.val = val
@@ -111,10 +111,10 @@ class Flag :
                 self.data_type = key.data_type
             else:
                 self.data_type = CRDT_type.Value(data_type)
-        
+
         def getType( self) :
             return self.data_type
-        
+
         def getKey( self) :
             return self.key
 
@@ -134,17 +134,17 @@ class Flag :
                 self.data_type = key.data_type
             else:
                 self.data_type = CRDT_type.Value(data_type)
-        
+
         def getType( self) :
             return self.data_type
-        
+
         def getKey( self) :
             return self.key
 
         def recordOp( self, op) :
             op.resetop.SetInParent()
 
-   
+
     def __repr__( self):
         return self.key.data_type_name + ' { val : ' + str(self.val) + '}'
 
@@ -155,7 +155,7 @@ class Register :
     def __init__(self, key, val):
         self.key = key
         self.val = val
-        
+
     def value( self) :
         return self.val
 
@@ -164,7 +164,7 @@ class Register :
 
     # def assignKeyOp( val, key) :
     #     return Register.AssignOp( key, val)
-    
+
     class AssignOp:
         def __init__(self, key, val, data_type = None):
             self.val = val
@@ -173,10 +173,10 @@ class Register :
                 self.data_type = key.data_type
             else:
                 self.data_type = CRDT_type.Value(data_type)
-        
+
         def getType( self) :
             return self.data_type
-        
+
         def getKey( self) :
             return self.key
 
@@ -216,7 +216,7 @@ class MVRegister :
     def __init__(self, key, vals):
         self.key = key
         self.vals = vals
-        
+
     def values( self) :
         return self.vals
 
@@ -225,7 +225,7 @@ class MVRegister :
 
     def assignKeyOp( val, key) :
         return MVRegister.AssignOp( key, val)
-    
+
     class AssignOp:
         def __init__(self, key, val, data_type = None):
             self.val = val
@@ -234,10 +234,10 @@ class MVRegister :
                 self.data_type = key.data_type
             else:
                 self.data_type = CRDT_type.Value(data_type)
-        
+
         def getType( self) :
             return self.data_type
-        
+
         def getKey( self) :
             return self.key
 
@@ -257,16 +257,16 @@ class MVRegister :
                 self.data_type = key.data_type
             else:
                 self.data_type = CRDT_type.Value(data_type)
-        
+
         def getType( self) :
             return self.data_type
-        
+
         def getKey( self) :
             return self.key
 
         def recordOp( self, op) :
             op.resetop.SetInParent()
-    
+
     def __repr__( self):
         return self.key.data_type_name + ' { val : ' + str(self.vals) + '}'
 
@@ -276,7 +276,7 @@ class Set :
     def __init__(self, key, vals):
         self.key = key
         self.vals = vals
-        
+
     def values( self) :
         return self.vals
 
@@ -285,7 +285,7 @@ class Set :
 
     # def addKeyOp( val, key) :
     #     return Set.AddOp( key, val)
-    
+
     class AddOp:
         def __init__(self, key, val, data_type = None):
             self.val = val
@@ -296,10 +296,10 @@ class Set :
                 self.data_type = key.data_type
             else:
                 self.data_type = CRDT_type.Value(data_type)
-        
+
         def getType( self) :
             return self.data_type
-        
+
         def getKey( self) :
             return self.key
 
@@ -312,7 +312,7 @@ class Set :
 
     # def removeKeyOp( val, key) :
     #     return Set.RemoveOp( key, val)
-    
+
     class RemoveOp:
         def __init__(self, key, val, data_type = None):
             self.val = val
@@ -323,10 +323,10 @@ class Set :
                 self.data_type = key.data_type
             else:
                 self.data_type = CRDT_type.Value(data_type)
-        
+
         def getType( self) :
             return self.data_type
-        
+
         def getKey( self) :
             return self.key
 
@@ -366,16 +366,16 @@ class Map :
     def __init__(self, key, vals):
         self.key = key
         self.vals = vals
-        
+
     def values( self) :
         return self.vals
 
     def updateOp( self, upds) :
-        return Map.UpdateOp( self.key, upds)   
+        return Map.UpdateOp( self.key, upds)
 
     # def updateKeyOp( upds, key) :
     #     return Map.UpdateOp( key, upds)
-    
+
     class UpdateOp:
         def __init__(self, key, upds, data_type = None):
             self.upds = upds
@@ -386,10 +386,10 @@ class Map :
                 self.data_type = key.data_type
             else:
                 self.data_type = CRDT_type.Value(data_type)
-        
+
         def getType( self) :
             return self.data_type
-                
+
         def getKey( self) :
             return self.key
 
@@ -401,11 +401,11 @@ class Map :
                 upd.recordOp( op.update)
 
     def removeOp( self, keys) :
-        return Map.RemoveOp( self.key, keys)   
+        return Map.RemoveOp( self.key, keys)
 
     # def removeKeyOp( upds, keys) :
     #     return Map.RemoveOp( key, keys)
-    
+
     class RemoveOp:
         def __init__(self, key, keys, data_type = None):
             self.keys = keys
@@ -416,10 +416,10 @@ class Map :
                 self.data_type = key.data_type
             else:
                 self.data_type = CRDT_type.Value(data_type)
-        
+
         def getType( self) :
             return self.data_type
-                
+
         def getKey( self) :
             return self.key
 
@@ -466,7 +466,7 @@ class ServerAddress:
         """ Address should be a string and port an integer """
         self.address = address
         self.port = port
-        
+
     def getAddress( self) :
         """ Returns the address as a tuple """
         return (self.address, self.port)
@@ -474,7 +474,7 @@ class ServerAddress:
 #---------------------------------------------------------------------------------
 # Antidote client main classes
 #---------------------------------------------------------------------------------
-class Key : 
+class Key :
     """" Class for an interative transaction """
     def __init__(self, bucket, key, data_type):
         if type(bucket) == bytes :
@@ -488,16 +488,16 @@ class Key :
         if type(data_type) == int :
             self.data_type = data_type
             self.data_type_name = CRDT_type.Name(data_type)
-        else : 
+        else :
             self.data_type = CRDT_type.Value(data_type)
             self.data_type_name = data_type
-   
+
 class StaticTransaction :
     """" Class for an interative transaction """
     def __init__(self, clt, red_blue):
         self.antidoteClient = clt
         self.red_blue = red_blue
-            
+
 
     def read_objects_raw( self, keys) :
         """ Execute one or more read object operations
@@ -564,14 +564,14 @@ class StaticTransaction :
         return res.success == True
 
 
-            
+
 
 class InteractiveTransaction :
     """" Class for an interative transaction """
     def __init__(self, clt, txDescriptor):
         self.antidoteClient = clt
         self.txDescriptor = txDescriptor
-            
+
 
     def read_objects_raw( self, keys) :
         """ Execute one or more read object operations
@@ -632,7 +632,7 @@ class InteractiveTransaction :
         return res.success == True
 
     def commit( self) :
-        """ Commit transaction. Commit time gets recoded in AntidoteClient as 
+        """ Commit transaction. Commit time gets recoded in AntidoteClient as
         last_commit
         """
         op = ApbCommitTransaction()
@@ -644,7 +644,7 @@ class InteractiveTransaction :
         return res.success == True
 
     def abort( self) :
-        """ Commit transaction. Commit time gets recoded in AntidoteClient as 
+        """ Commit transaction. Commit time gets recoded in AntidoteClient as
         last_commit
         """
         op = ApbAbortTransaction()
@@ -653,35 +653,35 @@ class InteractiveTransaction :
         res = self.antidoteClient.recvMessageCommitResp()
         return res
 
-            
-    
 
 
-class AntidoteClient : 
-    """ AntidoteDB protobuf client 
+
+
+class AntidoteClient :
+    """ AntidoteDB protobuf client
     """
     def __init__(self, address = None, port = None, serverAddress = None):
         """ Intiialize a client, connecting to an AntidoteDB server located
-        at serverAddress (of type ServerAddress) 
+        at serverAddress (of type ServerAddress)
         """
         if serverAddress == None:
             self.connect( ServerAddress( address, port))
         else:
             self.connect( serverAddress)
         self.last_commit = None
-                
+
     def connect( self, serverAddress):
         """ Connect this AntidoteClient to the AntidoteDB server located
-        at serverAddress (of type ServerAddress) 
+        at serverAddress (of type ServerAddress)
         """
         self.serverAddress = serverAddress
         try :
-            self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
-            self.server.connect( serverAddress.getAddress())                    
+            self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self.server.connect( serverAddress.getAddress())
         except socket.error as e:
             self.server = None
             raise AntidoteException( e)
-            
+
     def close( self) :
         """ Closes the underlying connection of this client
         """
@@ -694,7 +694,7 @@ class AntidoteClient :
             raise AntidoteException( e)
 
     def start_transaction( self, read_write = 0, red_blue = 0) :
-        """ Starts an interactive transaction, returning an object of type 
+        """ Starts an interactive transaction, returning an object of type
         InteractiveTransaction. Raises an exception if the operation fails.
         """
         apbtxn = ApbStartTransaction()
@@ -706,14 +706,14 @@ class AntidoteClient :
             return InteractiveTransaction( self, apbtxnresp.transaction_descriptor)
         else :
             raise AntidoteException( "Start transaction failed")
-        
+
     def start_static_transaction( self, red_blue = 0) :
-        """ Starts a static transaction, returning an object of type 
+        """ Starts a static transaction, returning an object of type
         StaticTransaction. Raises an exception if the operation fails.
         """
         return StaticTransaction( self, red_blue)
-        
-                
+
+
     #---------------------------------------------------------------------------------
     # Utilities
     #---------------------------------------------------------------------------------
@@ -745,17 +745,16 @@ class AntidoteClient :
         if self.server == None:
             raise AntidoteException( "Not connected to server")
         try :
-#            data = []
-#            nRecv = 0;
-#            while nRecv < nbytes:
-#                d = self.server.recv( nbytes - nRecv)
-#                nRecv = nRecv + len(d)
-#                data.append( d)
-#            return ''.join(data)
-            return self.server.recv( nbytes)
+            data = bytearray()
+            received = 0
+            while received < nbytes:
+                b = self.server.recv(nbytes - received)
+                received += len(b)
+                data.extend(b)
+            return bytes(data)
         except socket.error as e:
             raise AntidoteException( e)
-            
+
     def recvMessageRaw( self) :
         data = self.recvNBytes( 5)
         msgSize, msgCode = struct.unpack( ">IB", data)
@@ -836,9 +835,3 @@ class AntidoteClient :
 
     def sendMessageStaticReadObjects( self, msg) :
         self.sendMessage( msg, 123)
-
-        
-
-        
-
-        
